@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duongnxpk00662;
+package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class frmDangNhap extends javax.swing.JFrame {
 
-    String string = "src\\images\\IMG_DangNhap.jpg";
+    String string = "src\\images\\DangNhap.jpg";
 
     /**
      * Creates new form DangNhap
@@ -170,26 +170,25 @@ public class frmDangNhap extends javax.swing.JFrame {
         String MatKhau = txtPassWord.getText().trim();
 
         if (TenDangNhap.equals("") || MatKhau.equals("")) {
-            ThongBao("Bạn chưa nhập đầy đủ thông tin!");
+            ThongBao("Bạn chưa nhập đầy đủ thông tin");
         } else if (KiemTra(TenDangNhap, MatKhau)) {
             frmQuanLy frm = new frmQuanLy();
             frm.show();
             this.dispose();
-
-            String CauTruyVan = "Update db_dientoandammay.taikhoan set taikhoan.LuotDangNhap = "
-                    + "taikhoan.LuotDangNhap + 1 where taikhoan.TenTaiKhoan = N'" + TenDangNhap + "';";
+            //
+            String CauTruyVan = "update TaiKhoan set LuotDangNhap = LuotDangNhap+1 where TenTaiKhoan = N'"+TenDangNhap+"'";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
-            String ShowGiaTri = "Select taikhoan.LuotDangNhap from db_dientoandammay.taikhoan "
-                    + "where taikhoan.TenTaiKhoan = N'" + TenDangNhap + "'";
+            String ShowGiaTri = "select LuotDangNhap from TaiKhoan where TenTaiKhoan = N'"+TenDangNhap+"'";
             ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(ShowGiaTri);
-            try {
-                while (rs.next()) {
-                    Duongnxpk00662.LuotDangNhap = rs.getInt("LuotDangNhap");
+            try{
+                while(rs.next()){
+                    Duongnxpk00662.LuotDangNhap =  rs.getInt("LuotDangNhap");
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 System.out.println(e.toString());
             }
-
+            //
             Duongnxpk00662.HienThiUserName = txtUserName.getText();
         } else {
             ThongBao("Tên đăng nhập hoặc mật khẩu không chính xác!");
@@ -201,9 +200,7 @@ public class frmDangNhap extends javax.swing.JFrame {
     private boolean KiemTra(String TenDangNhap, String MatKhau) {
         boolean kq = false;
 
-        String CauTruyVan = "Select * from db_dientoandammay.taikhoan where "
-                + "taikhoan.TenTaiKhoan = N'"+TenDangNhap+"' and "
-                + "taikhoan.MatKhau = N'"+MatKhau+"';";
+        String CauTruyVan = "Select * from TaiKhoan where TenTaiKhoan = N'" + TenDangNhap + "' and MatKhau= N'" + MatKhau + "'";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
 
         try {
@@ -214,7 +211,7 @@ public class frmDangNhap extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ThongBao("Lỗi Đăng Nhập!");
         }
-        
+
         return kq;
     }
 

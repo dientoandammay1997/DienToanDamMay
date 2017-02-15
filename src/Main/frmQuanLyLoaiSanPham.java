@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duongnxpk00662;
+package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmQuanLyLoaiSanPham extends javax.swing.JFrame {
 
-    String string = "src\\images\\IMG_QuanLyLoaiSanPham.png";
+    String string = "src\\images\\QuanLyLoaiSanPham.png";
 
     /**
      * Creates new form frmQuanLyLoaiSanPham
@@ -420,13 +420,14 @@ public class frmQuanLyLoaiSanPham extends javax.swing.JFrame {
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         String TenLoai = txtTenLoai.getText();
         String MoTa = txtMoTa.getText();
-        String CauTruyVan = "Insert into db_dientoandammay.loaisanpham (loaisanpham.TenLoai, loaisanpham.MoTa)"
-                + " values (N'" + TenLoai + "',N'" + MoTa + "');";
+        String CauTruyVan = "insert into LoaiSanPham values (N'" + TenLoai + "',N'" + MoTa + "')";
         if (TenLoai.equals("")) {
             ThongBao("Tên loại không được để trống!");
         } else if (MoTa.equals("")) {
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
+        } else if (MoTa.length() < 11) {
+            ThongBao("Mô tả phải lớn hơn 10 ký tự!");
         } else if (!MoTa.equals("")) {
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
@@ -437,7 +438,7 @@ public class frmQuanLyLoaiSanPham extends javax.swing.JFrame {
         int[] MangViTri = tblQuanlyLoaiSanPham.getSelectedRows();
         for (int i = 0; i < MangViTri.length; i++) {
             String MaLoai = tblQuanlyLoaiSanPham.getValueAt(MangViTri[i], 0).toString();
-            String CauTruyVan = "Delete from db_dientoandammay.loaisanpham where loaisanpham.MaLoai = " + MaLoai;
+            String CauTruyVan = "Delete from LoaiSanPham where MaLoai = " + MaLoai;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
         }
         LayDuLieu();
@@ -447,14 +448,14 @@ public class frmQuanLyLoaiSanPham extends javax.swing.JFrame {
         String TenLoai = txtTenLoai.getText();
         String MoTa = txtMoTa.getText();
         String MaLoai = txtMaLoai.getText();
-        String CauTruyVan = "Update db_dientoandammay.loaisanpham set "
-                + "loaisanpham.TenLoai = N'" + TenLoai + "', loaisanpham.MoTa = N'" + MoTa + "' "
-                + "where loaisanpham.MaLoai = " + MaLoai;
+        String CauTruyVan = "Update LoaiSanPham Set TenLoai = N'" + TenLoai + "', MoTa = N'" + MoTa + "' where MaLoai = '"+MaLoai+"'";
         if (TenLoai.equals("")) {
             ThongBao("Tên loại không được để trống!");
         } else if (MoTa.equals("")) {
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
+        } else if (MoTa.length() < 11) {
+            ThongBao("Mô tả phải lớn hơn 10 ký tự!");
         } else if (!MoTa.equals("")) {
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
@@ -471,8 +472,7 @@ public class frmQuanLyLoaiSanPham extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String Search = txtSearch.getText();
-        String CauTruyVan = "Select * from db_dientoandammay.loaisanpham where "
-                + "loaisanpham.TenLoai like N'%" + Search + "%' or loaisanpham.MoTa like N'%" + Search + "%';";
+        String CauTruyVan = "select * from LoaiSanPham where TenLoai like N'%" + Search + "%' or MoTa like N'%" + Search + "%'";
         if (!Search.equals("")) {
             ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
             Object[] obj = new Object[]{"Mã Loại", "Tên Loại", "Mô Tả"};
@@ -501,7 +501,7 @@ public class frmQuanLyLoaiSanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuInfoMouseClicked
 
     private void LayDuLieu() {
-        String CauTruyVan = "Select * from db_dientoandammay.loaisanpham";
+        String CauTruyVan = "Select * from LoaiSanPham";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
         Object[] obj = new Object[]{"Mã Loại", "Tên Loại", "Mô Tả"};
         DefaultTableModel TableModel = new DefaultTableModel(obj, 0);

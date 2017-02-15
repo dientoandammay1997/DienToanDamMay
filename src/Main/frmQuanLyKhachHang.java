@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duongnxpk00662;
+package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmQuanLyKhachHang extends javax.swing.JFrame {
 
-    String string = "src\\images\\IMG_QuanLyKhachHang.png";
+    String string = "src\\images\\QuanLyKhachHang.png";
 
     /**
      * Creates new form frmQuanLyKhachHang
@@ -481,20 +481,18 @@ public class frmQuanLyKhachHang extends javax.swing.JFrame {
         } else if (!Duongnxpk00662.KiemTra.KiemTraCoChuaSoKhong(NgaySinh)) {
             ThongBao("Ngày sinh bắt buộc phải là số!");
         } else if (!Duongnxpk00662.KiemTra.KiemTraDate(NgaySinh)) {
-            ThongBao("Lỗi cú pháp!\nĐiền theo mẫu sau: Năm/Tháng/Ngày\nVí Dụ: 2016/05/31");
+            ThongBao("Lỗi cú pháp!\nĐiền theo mẫu sau: Năm/Tháng/Ngày\nVí Dụ: 2016/12/31");
         } else if (DiaChi.equals("")) {
             ThongBao("Địa chỉ không được để trống");
         } else if (SDT.equals("") && RdoBtnFemale.isSelected() == true) {
             GioiTinh = 0;
-            String CauTruyVan = "Insert into db_dientoandammay.khachhang "
-                    + "(khachhang.TenKhachHang, khachhang.GioiTinh, khachhang.NgaySinh, khachhang.DiaChi, khachhang.SDT) values "
-                    + "(N'" + TenKhachHang + "'," + GioiTinh + ",'" + NgaySinh + "',N'" + DiaChi + "','" + SDT + "');";
+            String CauTruyVan = "insert into KhachHang "
+                    + "values (N'" + TenKhachHang + "','" + GioiTinh + "','" + NgaySinh + "',N'" + DiaChi + "','" + SDT + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (SDT.equals("") && RdoBtnFemale.isSelected() == false) {
-            String CauTruyVan = "Insert into db_dientoandammay.khachhang "
-                    + "(khachhang.TenKhachHang, khachhang.GioiTinh, khachhang.NgaySinh, khachhang.DiaChi, khachhang.SDT) values "
-                    + "(N'" + TenKhachHang + "'," + GioiTinh + ",'" + NgaySinh + "',N'" + DiaChi + "','" + SDT + "');";
+            String CauTruyVan = "insert into KhachHang "
+                    + "values (N'" + TenKhachHang + "','" + GioiTinh + "','" + NgaySinh + "',N'" + DiaChi + "','" + SDT + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (!Duongnxpk00662.KiemTra.KiemTraCoChuaSoKhong(SDT)) {
@@ -503,15 +501,13 @@ public class frmQuanLyKhachHang extends javax.swing.JFrame {
             ThongBao("Số điện thoại phải từ 10-11 chữ số!");
         } else if (!SDT.equals("") && RdoBtnFemale.isSelected() == true) {
             GioiTinh = 0;
-            String CauTruyVan = "Insert into db_dientoandammay.khachhang "
-                    + "(khachhang.TenKhachHang, khachhang.GioiTinh, khachhang.NgaySinh, khachhang.DiaChi, khachhang.SDT) values "
-                    + "(N'" + TenKhachHang + "'," + GioiTinh + ",'" + NgaySinh + "',N'" + DiaChi + "','" + SDT + "');";
+            String CauTruyVan = "insert into KhachHang "
+                    + "values (N'" + TenKhachHang + "','" + GioiTinh + "','" + NgaySinh + "',N'" + DiaChi + "','" + SDT + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else {
-            String CauTruyVan = "Insert into db_dientoandammay.khachhang "
-                    + "(khachhang.TenKhachHang, khachhang.GioiTinh, khachhang.NgaySinh, khachhang.DiaChi, khachhang.SDT) values "
-                    + "(N'" + TenKhachHang + "'," + GioiTinh + ",'" + NgaySinh + "',N'" + DiaChi + "','" + SDT + "');";
+            String CauTruyVan = "insert into KhachHang "
+                    + "values (N'" + TenKhachHang + "','" + GioiTinh + "','" + NgaySinh + "',N'" + DiaChi + "','" + SDT + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         }
@@ -521,7 +517,7 @@ public class frmQuanLyKhachHang extends javax.swing.JFrame {
         int[] MangViTri = tblQuanLyKhachhang.getSelectedRows();
         for (int i = 0; i < MangViTri.length; i++) {
             String MaKhachHang = tblQuanLyKhachhang.getValueAt(MangViTri[i], 0).toString();
-            String CauTruyVan = "Delete from db_dientoandammay.khachhang where khachhang.MaKhachHang = " + MaKhachHang;
+            String CauTruyVan = "Delete from KhachHang where MaKhachHang =" + MaKhachHang;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
         }
         LayDuLieu();
@@ -548,22 +544,19 @@ public class frmQuanLyKhachHang extends javax.swing.JFrame {
         } else if (!Duongnxpk00662.KiemTra.KiemTraCoChuaSoKhong(NgaySinh)) {
             ThongBao("Ngày sinh bắt buộc phải là số!");
         } else if (!Duongnxpk00662.KiemTra.KiemTraDate(NgaySinh)) {
-            ThongBao("Lỗi cú pháp!\nĐiền theo mẫu sau: Năm/Tháng/Ngày\nVí Dụ: 2016/05/31");
+            ThongBao("Lỗi cú pháp!\nĐiền theo mẫu sau: Năm/Tháng/Ngày\nVí Dụ: 2016/12/31");
         } else if (DiaChi.equals("")) {
             ThongBao("Địa chỉ không được để trống");
         } else if (SDT.equals("") && RdoBtnFemale.isSelected() == true) {
-            GioiTinh = 0;
-            String CauTruyVan = "Update db_dientoandammay.khachhang set "
-                    + "khachhang.TenKhachHang = N'" + TenKhachHang + "', khachhang.GioiTinh = " + GioiTinh + ", "
-                    + "khachhang.NgaySinh = '" + NgaySinh + "', khachhang.DiaChi = N'" + DiaChi + "', "
-                    + "khachhang.SDT = '" + SDT + "' where khachhang.MaKhachHang = " + MaKhachHang;
+            String CauTruyVan = "Update KhachHang "
+                    + "Set TenKhachHang = N'" + TenKhachHang + "', GioiTinh = 0 , NgaySinh = '" + NgaySinh + "', DiaChi = N'" + DiaChi + "',SDT=" + SDT
+                    + "Where MaKhachHang = " + MaKhachHang;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (SDT.equals("") && RdoBtnFemale.isSelected() == false) {
-            String CauTruyVan = "Update db_dientoandammay.khachhang set "
-                    + "khachhang.TenKhachHang = N'" + TenKhachHang + "', khachhang.GioiTinh = " + GioiTinh + ", "
-                    + "khachhang.NgaySinh = '" + NgaySinh + "', khachhang.DiaChi = N'" + DiaChi + "', "
-                    + "khachhang.SDT = '" + SDT + "' where khachhang.MaKhachHang = " + MaKhachHang;
+            String CauTruyVan = "Update KhachHang "
+                    + "Set TenKhachHang = N'" + TenKhachHang + "', GioiTinh = 1 , NgaySinh = '" + NgaySinh + "', DiaChi = N'" + DiaChi + "',SDT=" + SDT
+                    + "Where MaKhachHang = " + MaKhachHang;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (!Duongnxpk00662.KiemTra.KiemTraCoChuaSoKhong(SDT)) {
@@ -571,18 +564,15 @@ public class frmQuanLyKhachHang extends javax.swing.JFrame {
         } else if (SDT.length() < 10 || SDT.length() > 11) {
             ThongBao("Số điện thoại phải từ 10-11 chữ số!");
         } else if (!SDT.equals("") && RdoBtnFemale.isSelected() == true) {
-            GioiTinh = 0;
-            String CauTruyVan = "Update db_dientoandammay.khachhang set "
-                    + "khachhang.TenKhachHang = N'" + TenKhachHang + "', khachhang.GioiTinh = " + GioiTinh + ", "
-                    + "khachhang.NgaySinh = '" + NgaySinh + "', khachhang.DiaChi = N'" + DiaChi + "', "
-                    + "khachhang.SDT = '" + SDT + "' where khachhang.MaKhachHang = " + MaKhachHang;
+            String CauTruyVan = "Update KhachHang "
+                    + "Set TenKhachHang = N'" + TenKhachHang + "', GioiTinh = 0 , NgaySinh = '" + NgaySinh + "', DiaChi = N'" + DiaChi + "',SDT=" + SDT
+                    + "Where MaKhachHang = " + MaKhachHang;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else {
-            String CauTruyVan = "Update db_dientoandammay.khachhang set "
-                    + "khachhang.TenKhachHang = N'" + TenKhachHang + "', khachhang.GioiTinh = " + GioiTinh + ", "
-                    + "khachhang.NgaySinh = '" + NgaySinh + "', khachhang.DiaChi = N'" + DiaChi + "', "
-                    + "khachhang.SDT = '" + SDT + "' where khachhang.MaKhachHang = " + MaKhachHang;
+            String CauTruyVan = "Update KhachHang "
+                    + "Set TenKhachHang = N'" + TenKhachHang + "', GioiTinh = 1 , NgaySinh = '" + NgaySinh + "', DiaChi = N'" + DiaChi + "',SDT=" + SDT
+                    + "Where MaKhachHang = " + MaKhachHang;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         }
@@ -616,10 +606,8 @@ public class frmQuanLyKhachHang extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String Search = txtSearch.getText();
-        String CauTruyVan = "Select * from db_dientoandammay.khachhang where "
-                + "khachhang.TenKhachHang like N'%" + Search + "%' or "
-                + "khachhang.DiaChi like N'%" + Search + "%' or "
-                + "khachhang.SDT = '" + Search + "';";
+        String CauTruyVan = "Select * from KhachHang "
+                + "Where TenKhachHang like N'%" + Search + "%' or DiaChi like N'%" + Search + "%' or SDT = '" + Search + "'";
 
         if (!Search.equals("")) {
             ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
@@ -667,7 +655,7 @@ public class frmQuanLyKhachHang extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuInfoMouseClicked
 
     private void LayDuLieu() {
-        String CauTruyVan = "Select * from db_dientoandammay.khachhang";
+        String CauTruyVan = "Select * from KhachHang";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
 
         Object[] obj = new Object[]{"Mã Khách Hàng", "Tên Khách Hàng", "Giới Tính", "Ngày Sinh", "Địa Chỉ", "Số Điện Thoại"};
@@ -693,7 +681,7 @@ public class frmQuanLyKhachHang extends javax.swing.JFrame {
     private String LayGioiTinhDuaVaoMa(String MaGioiTinh) {
         String GioiTinh = "";
 
-        String ctv = "select gioitinh from db_dientoandammay.gioitinh where gioitinh.MaGioiTinh = " + MaGioiTinh;
+        String ctv = "select GioiTinh from GioiTinh where MaGioiTinh = " + MaGioiTinh;
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(ctv);
         try {
             while (rs.next()) {

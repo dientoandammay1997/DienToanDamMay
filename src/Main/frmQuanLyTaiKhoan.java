@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duongnxpk00662;
+package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmQuanLyTaiKhoan extends javax.swing.JFrame {
 
-    String string = "src\\images\\IMG_QuanLyTaiKhoan.jpg";
+    String string = "src\\images\\QuanLyTaiKhoan.jpg";
 
     /**
      * Creates new form frmQuanLyTaiKhoan
@@ -432,9 +432,7 @@ public class frmQuanLyTaiKhoan extends javax.swing.JFrame {
         displaycbbmodel item = (displaycbbmodel) obj[0];
         String Quyen = item.DisplayValue.toString();
 
-        String CauTruyVan = "insert into db_dientoandammay.taikhoan "
-                + "(taikhoan.TenTaiKhoan, taikhoan.MatKhau, taikhoan.MaQuyen, taikhoan.LuotDangNhap) values "
-                + "('" + TenTaiKhoan + "','" + MatKhau + "'," + Quyen + ",0);";
+        String CauTruyVan = "insert into TaiKhoan values (N'" + TenTaiKhoan + "',N'" + MatKhau + "','" + Quyen + "')";
         if (TenTaiKhoan.equals("") || MatKhau.equals("")) {
             ThongBao("Bạn hãy nhập đầy đủ dữ liệu!");
         } else if (TenTaiKhoan.length() < 6) {
@@ -469,7 +467,7 @@ public class frmQuanLyTaiKhoan extends javax.swing.JFrame {
         int[] MangViTri = tblQuanLyTaiKhoan.getSelectedRows();
         for (int i = 0; i < MangViTri.length; i++) {
             String MaTaiKhoan = tblQuanLyTaiKhoan.getValueAt(MangViTri[i], 1).toString();
-            String CauTruyVan = "delete from db_dientoandammay.taikhoan where taikhoan.MaTaiKhoan = " + MaTaiKhoan;
+            String CauTruyVan = "Delete from TaiKhoan where MaTaiKhoan = " + MaTaiKhoan;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
         }
         LayDuLieu();
@@ -484,9 +482,8 @@ public class frmQuanLyTaiKhoan extends javax.swing.JFrame {
         displaycbbmodel item = (displaycbbmodel) obj[0];
         String MaQuyen = item.DisplayValue.toString();
 
-        String CauTruyVan = "update db_dientoandammay.taikhoan set "
-                + "taikhoan.TenTaiKhoan = '" + TenTaiKhoan + "', taikhoan.MatKhau = '" + MatKhau + "', "
-                + "taikhoan.MaQuyen = " + MaQuyen + " where taikhoan.MaTaiKhoan = " + MaTaiKhoan;
+        String CauTruyVan = "Update TaiKhoan Set TenTaiKhoan = N'" + TenTaiKhoan + "', MatKhau = N'" + MatKhau + "', MaQuyen = " + MaQuyen
+                + "Where MaTaiKhoan = " + MaTaiKhoan;
         if (TenTaiKhoan.equals("") || MatKhau.equals("")) {
             ThongBao("Bạn hãy chọn tài khoản cần sửa!");
         } else if (TenTaiKhoan.length() < 6) {
@@ -517,7 +514,7 @@ public class frmQuanLyTaiKhoan extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String Search = txtSearch.getText();
-        String CauTruyVan = "select * from db_dientoandammay.taikhoan where taikhoan.TenTaiKhoan like '" + Search + "';";
+        String CauTruyVan = "select * from TaiKhoan where TenTaiKhoan like N'%" + Search + "%'";
         if (!Search.equals("")) {
             ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
             Object[] obj = new Object[]{"STT", "Mã Tài Khoản", "Tên Tài Khoản", "Mật Khẩu", "Quyền"};
@@ -557,7 +554,7 @@ public class frmQuanLyTaiKhoan extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuInfoMouseClicked
 
     private void LayDuLieu() {
-        String CauTruyVan = "SELECT * FROM db_dientoandammay.taikhoan;";
+        String CauTruyVan = "Select * from TaiKhoan";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
 
         Object[] obj = new Object[]{"STT", "Mã Tài Khoản", "Tên Tài Khoản", "Mật Khẩu", "Quyền"};
@@ -594,7 +591,7 @@ public class frmQuanLyTaiKhoan extends javax.swing.JFrame {
     }
 
     private void Combobox() {
-        String ctv = "SELECT * FROM db_dientoandammay.quyen;";
+        String ctv = "Select * from Quyen";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(ctv);
         DefaultComboBoxModel cbbModel = new DefaultComboBoxModel();
         try {
@@ -611,7 +608,7 @@ public class frmQuanLyTaiKhoan extends javax.swing.JFrame {
     private String LayTenQuyenDuaVaoMaQuyen(String MaQuyen) {
         String TenQuyen = "";
 
-        String ctv = "SELECT TenQuyen FROM db_dientoandammay.quyen where quyen.MaQuyen = " + MaQuyen;
+        String ctv = "select TenQuyen from Quyen where MaQuyen = " + MaQuyen;
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(ctv);
         try {
             while (rs.next()) {

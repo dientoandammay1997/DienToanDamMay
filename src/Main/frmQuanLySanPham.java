@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duongnxpk00662;
+package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmQuanLySanPham extends javax.swing.JFrame {
 
-    String string = "src\\images\\IMG_QuanLySanPham.png";
+    String string = "src\\images\\QuanLySanPham.png";
 
     /**
      * Creates new form frmQuanLySanPham
@@ -498,17 +498,13 @@ public class frmQuanLySanPham extends javax.swing.JFrame {
         } else if (Duongnxpk00662.KiemTra.KiemTraKyTu(SoLuong)) {
             ThongBao("Số lượng sản phẩm không được < 0!");
         } else if (MoTa.equals("")) {
-            String CauTruyVan = "insert into db_dientoandammay.sanpham "
-                    + "(sanpham.TenSanPham, sanpham.MoTa, sanpham.GiaSanPham, sanpham.SoLuong, sanpham.MaLoai) values "
-                    + "(N'" + TenSanPham + "', N'" + MoTa + "', " + Gia + ", " + SoLuong + ", " + Loai + ");";
+            String CauTruyVan = "insert into SanPham values(N'" + TenSanPham + "',N'" + MoTa + "','" + Gia + "','" + SoLuong + "','" + Loai + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (MoTa.length() < 11) {
             ThongBao("Mô tả phải lớn hơn 10 ký tự!");
         } else {
-            String CauTruyVan = "insert into db_dientoandammay.sanpham "
-                    + "(sanpham.TenSanPham, sanpham.MoTa, sanpham.GiaSanPham, sanpham.SoLuong, sanpham.MaLoai) values "
-                    + "(N'" + TenSanPham + "', N'" + MoTa + "', " + Gia + ", " + SoLuong + ", " + Loai + ");";
+            String CauTruyVan = "insert into SanPham values(N'" + TenSanPham + "',N'" + MoTa + "','" + Gia + "','" + SoLuong + "','" + Loai + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         }
@@ -544,19 +540,19 @@ public class frmQuanLySanPham extends javax.swing.JFrame {
         } else if (Duongnxpk00662.KiemTra.KiemTraKyTu(SoLuong)) {
             ThongBao("Số lượng sản phẩm không được < 0!");
         } else if (MoTa.equals("")) {
-            String CauTruyVan = "update db_dientoandammay.sanpham set "
-                    + "sanpham.TenSanPham = N'" + TenSanPham + "', sanpham.MoTa = N'" + MoTa + "', "
-                    + "sanpham.GiaSanPham = " + Gia + ", sanpham.SoLuong = " + SoLuong + ", "
-                    + "sanpham.MaLoai = " + Loai + " where sanpham.MaSanPham = " + MaSanPham;
+            String CauTruyVan = "update SanPham "
+                    + "set TenSanPham = N'" + TenSanPham + "' , MoTa = N'" + MoTa + "', "
+                    + "GiaSanPham = '" + Gia + "', SoLuong ='" + SoLuong + "',  MaLoai='" + Loai + "' "
+                    + "where MaSanPham =" + MaSanPham;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (MoTa.length() < 11) {
             ThongBao("Mô tả phải lớn hơn 10 ký tự!");
         } else {
-            String CauTruyVan = "update db_dientoandammay.sanpham set "
-                    + "sanpham.TenSanPham = N'" + TenSanPham + "', sanpham.MoTa = N'" + MoTa + "', "
-                    + "sanpham.GiaSanPham = " + Gia + ", sanpham.SoLuong = " + SoLuong + ", "
-                    + "sanpham.MaLoai = " + Loai + " where sanpham.MaSanPham = " + MaSanPham;
+            String CauTruyVan = "update SanPham "
+                    + "set TenSanPham = N'" + TenSanPham + "' , MoTa = N'" + MoTa + "', "
+                    + "GiaSanPham = '" + Gia + "', SoLuong ='" + SoLuong + "',  MaLoai='" + Loai + "' "
+                    + "where MaSanPham =" + MaSanPham;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         }
@@ -566,7 +562,7 @@ public class frmQuanLySanPham extends javax.swing.JFrame {
         int[] MangViTri = tblQuanLySanPham.getSelectedRows();
         for (int i = 0; i < MangViTri.length; i++) {
             String MaSanPham = tblQuanLySanPham.getValueAt(MangViTri[i], 0).toString();
-            String CauTruyVan = "delete from db_dientoandammay.sanpham where sanpham.MaSanPham = " + MaSanPham;
+            String CauTruyVan = "Delete from SanPham where MaSanPham = '" + MaSanPham + "'";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
         }
         LayDuLieu();
@@ -585,9 +581,8 @@ public class frmQuanLySanPham extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String Search = txtSearch.getText();
-        String CauTruyVan = "select * from db_dientoandammay.sanpham where "
-                + "sanpham.TenSanPham like N'%" + Search + "%' or "
-                + "sanpham.MoTa like N'%" + Search + "%';";
+        String CauTruyVan = "select * from SanPham where TenSanPham like N'%" + Search + "%' or "
+                + "MoTa like N'%" + Search + "%'";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
         Object[] obj = new Object[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Mô Tả", "Giá Sản Phẩm", "Số Lượng", "Mã Loại"};
         DefaultTableModel TableModel = new DefaultTableModel(obj, 0);
@@ -615,7 +610,7 @@ public class frmQuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuInfoMouseClicked
 
     private void LayDuLieu() {
-        String CauTruyVan = "SELECT * FROM db_dientoandammay.sanpham;";
+        String CauTruyVan = "Select * from SanPham";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
         Object[] obj = new Object[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Mô Tả", "Giá Sản Phẩm", "Số Lượng", "Mã Loại"};
         DefaultTableModel TableModel = new DefaultTableModel(obj, 0);
@@ -652,7 +647,7 @@ public class frmQuanLySanPham extends javax.swing.JFrame {
     }
 
     private void Combobox() {
-        String ctv = "SELECT * FROM db_dientoandammay.loaisanpham;";
+        String ctv = "Select * from LoaiSanPham";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(ctv);
         DefaultComboBoxModel cbbModel = new DefaultComboBoxModel();
         try {
@@ -668,7 +663,7 @@ public class frmQuanLySanPham extends javax.swing.JFrame {
 
     private String LayTenLoaiDuaVaoMaLoai(String MaLoai) {
         String TenLoai = "";
-        String ctv = "SELECT TenLoai FROM db_dientoandammay.loaisanpham where loaisanpham.MaLoai = " + MaLoai;
+        String ctv = "select TenLoai from LoaiSanPham where MaLoai = " + MaLoai;
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(ctv);
         try {
             while (rs.next()) {

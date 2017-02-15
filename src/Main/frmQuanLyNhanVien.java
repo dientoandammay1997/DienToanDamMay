@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duongnxpk00662;
+package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmQuanLyNhanVien extends javax.swing.JFrame {
 
-    String string = "src\\images\\IMG_QuanLyNhanVien.png";
+    String string = "src\\images\\QuanLyNhanVien.png";
 
     /**
      * Creates new form frmQuanLyNhanVien
@@ -545,11 +545,9 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         String Search = txtSearch.getText();
-        String CauTruyVan = "Select * from db_dientoandammay.nhanvien where "
-                + "nhanvien.TenNhanVien like N'%" + Search + "%' or "
-                + "nhanvien.DiaChi like N'%" + Search + "%' or "
-                + "nhanvien.SoCMND = '" + Search + "' or "
-                + "nhanvien.SDT = '" + Search + "';";
+        String CauTruyVan = "Select * from NhanVien "
+                + "Where TenNhanVien like N'%" + Search + "%' or DiaChi like N'%" + Search + "%' "
+                + "or SoCMND = '" + Search + "' or SDT = '" + Search + "'";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
         Object[] obj = new Object[]{"Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Ngày Sinh", "Địa Chỉ",
             "Số CMND", "Số Điện Thoại", "Ngày Vào Làm", "Chức Vụ"};
@@ -618,19 +616,15 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
             ThongBao("Lỗi cú pháp!\nĐiền theo mẫu sau: Năm/Tháng/Ngày\nVí Dụ: 2016/05/31");
         } else if (SDT.equals("") && RdoBtnFemale.isSelected() == true) {
             GioiTinh = 0;
-            String CauTruyVan = "insert into db_dientoandammay.nhanvien "
-                    + "(nhanvien.TenNhanVien, nhanvien.GioiTinh, nhanvien.NgaySinh, nhanvien.DiaChi, "
-                    + "nhanvien.SoCMND, nhanvien.SDT, nhanvien.NgayVaoLam, nhanvien.MaChucVu) values "
-                    + "(N'" + TenNhanVien + "', " + GioiTinh + ", '" + NgaySinh + "', N'" + DiaChi + "', "
-                    + "'" + SoCMND + "', '" + SDT + "', '" + NgayVaoLam + "', " + ChucVu + ");";
+            String CauTruyVan = "insert into NhanVien "
+                    + "values (N'" + TenNhanVien + "','" + GioiTinh + "','" + NgaySinh + "',N'" + DiaChi + "',"
+                    + "'" + SoCMND + "','" + SDT + "','" + NgayVaoLam + "','" + ChucVu + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (SDT.equals("") && RdoBtnFemale.isSelected() == false) {
-            String CauTruyVan = "insert into db_dientoandammay.nhanvien "
-                    + "(nhanvien.TenNhanVien, nhanvien.GioiTinh, nhanvien.NgaySinh, nhanvien.DiaChi, "
-                    + "nhanvien.SoCMND, nhanvien.SDT, nhanvien.NgayVaoLam, nhanvien.MaChucVu) values "
-                    + "(N'" + TenNhanVien + "', " + GioiTinh + ", '" + NgaySinh + "', N'" + DiaChi + "', "
-                    + "'" + SoCMND + "', '" + SDT + "', '" + NgayVaoLam + "', " + ChucVu + ");";
+            String CauTruyVan = "insert into NhanVien "
+                    + "values (N'" + TenNhanVien + "','" + GioiTinh + "','" + NgaySinh + "',N'" + DiaChi + "',"
+                    + "'" + SoCMND + "','" + SDT + "','" + NgayVaoLam + "','" + ChucVu + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (!Duongnxpk00662.KiemTra.KiemTraCoChuaSoKhong(SDT)) {
@@ -639,19 +633,15 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
             ThongBao("Số điện thoại phải từ 10-11 chữ số!");
         } else if (!SDT.equals("") && RdoBtnFemale.isSelected() == true) {
             GioiTinh = 0;
-            String CauTruyVan = "insert into db_dientoandammay.nhanvien "
-                    + "(nhanvien.TenNhanVien, nhanvien.GioiTinh, nhanvien.NgaySinh, nhanvien.DiaChi, "
-                    + "nhanvien.SoCMND, nhanvien.SDT, nhanvien.NgayVaoLam, nhanvien.MaChucVu) values "
-                    + "(N'" + TenNhanVien + "', " + GioiTinh + ", '" + NgaySinh + "', N'" + DiaChi + "', "
-                    + "'" + SoCMND + "', '" + SDT + "', '" + NgayVaoLam + "', " + ChucVu + ");";
+            String CauTruyVan = "insert into NhanVien "
+                    + "values (N'" + TenNhanVien + "','" + GioiTinh + "','" + NgaySinh + "',N'" + DiaChi + "',"
+                    + "'" + SoCMND + "','" + SDT + "','" + NgayVaoLam + "','" + ChucVu + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else {
-            String CauTruyVan = "insert into db_dientoandammay.nhanvien "
-                    + "(nhanvien.TenNhanVien, nhanvien.GioiTinh, nhanvien.NgaySinh, nhanvien.DiaChi, "
-                    + "nhanvien.SoCMND, nhanvien.SDT, nhanvien.NgayVaoLam, nhanvien.MaChucVu) values "
-                    + "(N'" + TenNhanVien + "', " + GioiTinh + ", '" + NgaySinh + "', N'" + DiaChi + "', "
-                    + "'" + SoCMND + "', '" + SDT + "', '" + NgayVaoLam + "', " + ChucVu + ");";
+            String CauTruyVan = "insert into NhanVien "
+                    + "values (N'" + TenNhanVien + "','" + GioiTinh + "','" + NgaySinh + "',N'" + DiaChi + "',"
+                    + "'" + SoCMND + "','" + SDT + "','" + NgayVaoLam + "','" + ChucVu + "')";
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         }
@@ -663,7 +653,7 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
         int[] MangViTri = tblQuanLyNhanVien.getSelectedRows();
         for (int i = 0; i < MangViTri.length; i++) {
             String MaNhanVien = tblQuanLyNhanVien.getValueAt(MangViTri[i], 0).toString();
-            String CauTruyVan = "delete from db_dientoandammay.nhanvien where nhanvien.MaNhanVien = " + MaNhanVien;
+            String CauTruyVan = "Delete from NhanVien where MaNhanVien = " + MaNhanVien;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
         }
         LayDuLieu();
@@ -713,21 +703,17 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
             ThongBao("Lỗi cú pháp!\nĐiền theo mẫu sau: Năm/Tháng/Ngày\nVí Dụ: 2016/05/31");
         } else if (SDT.equals("") && RdoBtnFemale.isSelected() == true) {
             GioiTinh = 0;
-            String CauTruyVan = "update db_dientoandammay.nhanvien set "
-                    + "nhanvien.TenNhanVien = N'" + TenNhanVien + "', nhanvien.GioiTinh = " + GioiTinh + ", "
-                    + "nhanvien.NgaySinh = '" + NgaySinh + "', nhanvien.DiaChi = N'" + DiaChi + "', "
-                    + "nhanvien.SoCMND = '" + SoCMND + "', nhanvien.SDT = '" + SDT + "', "
-                    + "nhanvien.NgayVaoLam = '" + NgayVaoLam + "', nhanvien.MaChucVu = " + ChucVu + " "
-                    + "where nhanvien.MaNhanVien = " + MaNhanVien;
+            String CauTruyVan = "Update NhanVien "
+                    + "Set TenNhanVien = N'" + TenNhanVien + "', GioiTinh = '" + GioiTinh + "', NgaySinh = '" + NgaySinh + "',"
+                    + " DiaChi = N'" + DiaChi + "', SoCMND = '" + SoCMND + "', SDT = '" + SDT + "', NgayVaoLam = '" + NgayVaoLam + "', MaChucVu = " + ChucVu
+                    + " Where MaNhanVien = " + MaNhanVien;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (SDT.equals("") && RdoBtnFemale.isSelected() == false) {
-            String CauTruyVan = "update db_dientoandammay.nhanvien set "
-                    + "nhanvien.TenNhanVien = N'" + TenNhanVien + "', nhanvien.GioiTinh = " + GioiTinh + ", "
-                    + "nhanvien.NgaySinh = '" + NgaySinh + "', nhanvien.DiaChi = N'" + DiaChi + "', "
-                    + "nhanvien.SoCMND = '" + SoCMND + "', nhanvien.SDT = '" + SDT + "', "
-                    + "nhanvien.NgayVaoLam = '" + NgayVaoLam + "', nhanvien.MaChucVu = " + ChucVu + " "
-                    + "where nhanvien.MaNhanVien = " + MaNhanVien;
+            String CauTruyVan = "Update NhanVien "
+                    + "Set TenNhanVien = N'" + TenNhanVien + "', GioiTinh = '" + GioiTinh + "', NgaySinh = '" + NgaySinh + "',"
+                    + " DiaChi = N'" + DiaChi + "', SoCMND = '" + SoCMND + "', SDT = '" + SDT + "', NgayVaoLam = '" + NgayVaoLam + "', MaChucVu = " + ChucVu
+                    + " Where MaNhanVien = " + MaNhanVien;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else if (!Duongnxpk00662.KiemTra.KiemTraCoChuaSoKhong(SDT)) {
@@ -736,21 +722,17 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
             ThongBao("Số điện thoại phải từ 10-11 chữ số!");
         } else if (!SDT.equals("") && RdoBtnFemale.isSelected() == true) {
             GioiTinh = 0;
-            String CauTruyVan = "update db_dientoandammay.nhanvien set "
-                    + "nhanvien.TenNhanVien = N'" + TenNhanVien + "', nhanvien.GioiTinh = " + GioiTinh + ", "
-                    + "nhanvien.NgaySinh = '" + NgaySinh + "', nhanvien.DiaChi = N'" + DiaChi + "', "
-                    + "nhanvien.SoCMND = '" + SoCMND + "', nhanvien.SDT = '" + SDT + "', "
-                    + "nhanvien.NgayVaoLam = '" + NgayVaoLam + "', nhanvien.MaChucVu = " + ChucVu + " "
-                    + "where nhanvien.MaNhanVien = " + MaNhanVien;
+            String CauTruyVan = "Update NhanVien "
+                    + "Set TenNhanVien = N'" + TenNhanVien + "', GioiTinh = '" + GioiTinh + "', NgaySinh = '" + NgaySinh + "',"
+                    + " DiaChi = N'" + DiaChi + "', SoCMND = '" + SoCMND + "', SDT = '" + SDT + "', NgayVaoLam = '" + NgayVaoLam + "', MaChucVu = " + ChucVu
+                    + " Where MaNhanVien = " + MaNhanVien;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
         } else {
-            String CauTruyVan = "update db_dientoandammay.nhanvien set "
-                    + "nhanvien.TenNhanVien = N'" + TenNhanVien + "', nhanvien.GioiTinh = " + GioiTinh + ", "
-                    + "nhanvien.NgaySinh = '" + NgaySinh + "', nhanvien.DiaChi = N'" + DiaChi + "', "
-                    + "nhanvien.SoCMND = '" + SoCMND + "', nhanvien.SDT = '" + SDT + "', "
-                    + "nhanvien.NgayVaoLam = '" + NgayVaoLam + "', nhanvien.MaChucVu = " + ChucVu + " "
-                    + "where nhanvien.MaNhanVien = " + MaNhanVien;
+            String CauTruyVan = "Update NhanVien "
+                    + "Set TenNhanVien = N'" + TenNhanVien + "', GioiTinh = '" + GioiTinh + "', NgaySinh = '" + NgaySinh + "',"
+                    + " DiaChi = N'" + DiaChi + "', SoCMND = '" + SoCMND + "', SDT = '" + SDT + "', NgayVaoLam = '" + NgayVaoLam + "', MaChucVu = " + ChucVu
+                    + " Where MaNhanVien = " + MaNhanVien;
             Duongnxpk00662.ConnectDB.ExcuteQueryUpdateDB(CauTruyVan);
             LayDuLieu();
 
@@ -779,7 +761,7 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuInfoMouseClicked
 
     private void LayDuLieu() {
-        String CauTruyVan = "SELECT * FROM db_dientoandammay.nhanvien;";
+        String CauTruyVan = "Select * from NhanVien";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(CauTruyVan);
 
         Object[] obj = new Object[]{"Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "Ngày Sinh", "Địa Chỉ",
@@ -821,7 +803,7 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
     }
 
     private void Combobox() {
-        String ctv = "SELECT * FROM db_dientoandammay.chucvu;";
+        String ctv = "Select * from ChucVu";
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(ctv);
         DefaultComboBoxModel cbbModel = new DefaultComboBoxModel();
         try {
@@ -838,7 +820,7 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
     private String LayTenChucVuDuaVaoMaChucVu(String MaChucVu) {
         String TenChucVu = "";
 
-        String ctv = "select ChucVu.TenChucVu from db_dientoandammay.chucvu where chucvu.MaChucVu = " + MaChucVu;
+        String ctv = "select TenChucVu from ChucVu where MaChucVu = " + MaChucVu;
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(ctv);
         try {
             while (rs.next()) {
@@ -855,7 +837,7 @@ public class frmQuanLyNhanVien extends javax.swing.JFrame {
     private String LayGioiTinhDuaVaoMa(String MaGioiTinh) {
         String GioiTinh = "";
 
-        String ctv = "select gioitinh.GioiTinh from db_dientoandammay.gioitinh where gioitinh.MaGioiTinh = " + MaGioiTinh;
+        String ctv = "select GioiTinh from GioiTinh where MaGioiTinh = " + MaGioiTinh;
         ResultSet rs = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(ctv);
         try {
             while (rs.next()) {

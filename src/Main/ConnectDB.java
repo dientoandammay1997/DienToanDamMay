@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duongnxpk00662;
+package Main;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,47 +18,49 @@ import javax.swing.JOptionPane;
  * @author DuongAli
  */
 public class ConnectDB {
-
-    String url = "jdbc:mysql://localhost:3306/db_dientoandammay";
-    String user = "root";
-    String password = "duongnguyen97";
+    String connectionString = "jdbc:sqlserver://DUONGNGUYEN:1433;"
+            + "databaseName=duongnxpk00662_ASM_Java2;"
+            + "user=DuongNguyen;"
+            + "password=123456";
     Connection conn;
-
-    public ConnectDB() {
-
+    public ConnectDB(){
+       
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, password);
-            if (conn != null) {
-                System.out.println("Kết nối CSDL MySQL thành công!");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            conn = DriverManager.getConnection(connectionString);
+            
+            if(conn != null){
+                System.out.println("Kết nối CSDL SQL Server thành công!");
             }
-
+            
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.toString());
         }
     }
-
+    
+    
     private JFrame mainFrame;
-
     //Thực thi câu lệnh SELECT
-    public ResultSet ExcuteQueryGetTable(String cauTruyVanSQL) {
+    public ResultSet ExcuteQueryGetTable(String cauTruyVanSQL){
         try {
-            Statement stmt = conn.createStatement();
+            Statement stmt = conn.createStatement();           
             ResultSet rs = stmt.executeQuery(cauTruyVanSQL);
             return rs;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(mainFrame, "Lỗi Thực Thi!\n" + ex.toString());
+            JOptionPane.showMessageDialog( mainFrame, "Lỗi Thực Thi!\n"+ex.toString());
         }
         return null;
     }
-
+    
     //Thực thi INSERT, DELETE, UPDATE
-    public void ExcuteQueryUpdateDB(String cauTruyVanSQL) {
+    public void ExcuteQueryUpdateDB(String cauTruyVanSQL){
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(cauTruyVanSQL);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(mainFrame, "Lỗi Thực Thi!\n" + ex.toString());
+            JOptionPane.showMessageDialog( mainFrame, "Lỗi Thực Thi!\n"+ex.toString());
         }
     }
 }
+    
+

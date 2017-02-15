@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duongnxpk00662;
+package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  * @author DuongAli
  */
 public class frmQuanLy extends javax.swing.JFrame {
-    String string = "src\\images\\IMG_QuanLy.jpg";
+    String string = "src\\images\\QuanLy.jpg";
     /**
      * Creates new form frmQuanLy
      */
@@ -302,10 +302,10 @@ public class frmQuanLy extends javax.swing.JFrame {
         lblShowAccess.setText("Lượt đăng nhập:  " +Duongnxpk00662.LuotDangNhap);
         
         if(frmDangNhap.Quyen == 1){
-            lblShowInfo.setText("Bạn vừa đăng nhập bằng quyền Quản Trị");
+            lblShowInfo.setText("Bạn vừa đăng nhập bằng quyền ADMIN");
         }
         else if(frmDangNhap.Quyen == 2){
-            lblShowInfo.setText("Bạn vừa đăng nhập bằng quyền Quản Lý");
+            lblShowInfo.setText("Bạn vừa đăng nhập bằng quyền IT");
         }
         else if(frmDangNhap.Quyen == 3){
             lblShowInfo.setText("Bạn vừa đăng nhập bằng quyền Nhân Viên");

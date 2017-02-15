@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package duongnxpk00662;
+package Main;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * @author DuongAli
  */
 public class KiemTra {
-
+    
     //Kiểm Tra Khoảng Trắng
     public boolean KiemTraWhitespace(String TenDangNhap) {
         boolean ketqua = false;
@@ -29,7 +29,7 @@ public class KiemTra {
     public boolean KiemTraUser(String TenDangNhap) {
         boolean ketqua = false;
 
-        String cautruyvan = "Select * from db_dientoandammay.taikhoan where taikhoan.TenTaiKhoan = N'" + TenDangNhap + "';";
+        String cautruyvan = "select * from TaiKhoan where TenTaiKhoan = N'" + TenDangNhap + "'";
         ResultSet rss = Duongnxpk00662.ConnectDB.ExcuteQueryGetTable(cautruyvan);
 
         try {
@@ -71,7 +71,7 @@ public class KiemTra {
         ketQua = m.find();
         return ketQua;
     }
-
+    
     //Kiểm Tra Ký Tự
     public boolean KiemTraKyTu(String ChuoiKiemTra) {
         boolean ketQua = false;
